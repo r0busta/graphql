@@ -357,7 +357,7 @@ func TestQueryArguments(t *testing.T) {
 		},
 	}
 	for i, tt := range tests {
-		tt := tt
+		i, tt := i, tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			got := queryArguments(tt.in)
