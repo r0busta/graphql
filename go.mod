@@ -1,18 +1,16 @@
 module github.com/r0busta/graphql
 
-go 1.17
+go 1.23.0
 
 require (
-	github.com/emirpasic/gods v1.12.0
+	github.com/emirpasic/gods v1.18.1
 	github.com/golang/mock v1.6.0
-	github.com/graph-gophers/graphql-go v1.2.0
-	github.com/thoas/go-funk v0.9.1
-	golang.org/x/net v0.0.0-20211216030914-fe4d6282115f
+	github.com/graph-gophers/graphql-go v1.7.0
+	github.com/thoas/go-funk v0.9.3
+	golang.org/x/net v0.43.0
 )
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/opentracing/opentracing-go v1.2.0 // indirect
-	github.com/stretchr/testify v1.7.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
