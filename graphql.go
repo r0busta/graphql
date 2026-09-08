@@ -5,10 +5,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
-
-	"golang.org/x/net/context/ctxhttp"
 )
 
 //go:generate mockgen -destination=./mock/graphql.go -package=mock . GraphQL
@@ -22,8 +20,8 @@ type GraphQL interface {
 
 // Client is a GraphQL client.
 type Client struct {
-	url        string // GraphQL server URL.
-	httpClient *http.Client
+	url        string       // GraphQL server URL.
+	httpClient *http.Client // Non-nil.
 }
 
 // NewClient creates a GraphQL client targeting the specified GraphQL server URL.
@@ -82,13 +80,18 @@ func (c *Client) do(ctx context.Context, query string, variables map[string]inte
 	if err != nil {
 		return err
 	}
-	resp, err := ctxhttp.Post(ctx, c.httpClient, c.url, "application/json", &buf)
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.url, &buf)
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return err
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		body, _ := ioutil.ReadAll(resp.Body)
+		body, _ := io.ReadAll(resp.Body)
 		return fmt.Errorf("non-200 OK status code: %v body: %q", resp.Status, body)
 	}
 	var out struct {

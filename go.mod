@@ -7,7 +7,6 @@ require (
 	github.com/golang/mock v1.6.0
 	github.com/graph-gophers/graphql-go v1.7.0
 	github.com/thoas/go-funk v0.9.3
-	golang.org/x/net v0.43.0
 )
 
 require (
