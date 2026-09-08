@@ -2,9 +2,21 @@
 
 Package `graphql` provides a GraphQL client implementation.
 
+This is a fork of [shurcooL/graphql](https://github.com/shurcooL/graphql) by
+Dmitri Shuralyov, maintained for use by
+[go-shopify-graphql](https://github.com/r0busta/go-shopify-graphql). On top of
+the upstream package it adds:
+
+- `QueryString` and `MutateString` for sending raw query strings and decoding
+  the response into a value you provide.
+- A `GraphQL` interface covering the client methods, with a gomock mock in
+  `mock/`.
+- Cycle detection when deriving a query from a struct, so recursive types do
+  not produce infinitely nested selections.
+
 ## Installation
 
-`graphql` requires Go version 1.8 or later.
+`graphql` requires Go 1.23 or later.
 
 ```bash
 go get -u github.com/r0busta/graphql
